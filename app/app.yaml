@@ -1,0 +1,22 @@
+command:
+  - streamlit
+  - run
+  - app.py
+  - --server.port=$DATABRICKS_APP_PORT
+  - --server.address=0.0.0.0
+  - --server.headless=true
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "<warehouse-id>"
+  - name: AKZO_CATALOG
+    value: "<catalog>"
+  - name: AKZO_SCHEMA
+    value: "<schema>"
+  - name: DATABRICKS_CHAT_ENDPOINT
+    value: "databricks-claude-opus-4-8"
+  - name: LAKEBASE_INSTANCE
+    value: "<lakebase-instance>"
+  - name: LAKEBASE_DBNAME
+    value: "databricks_postgres"
+  - name: LAKEBASE_SCHEMA
+    value: "akzo"
