@@ -7,15 +7,15 @@ command:
   - --server.headless=true
 env:
   - name: DATABRICKS_WAREHOUSE_ID
-    value: "<warehouse-id>"
+    value: "eded86f25a7f6ab1"
   - name: AKZO_CATALOG
-    value: "<catalog>"
+    value: "workspace"
   - name: AKZO_SCHEMA
-    value: "<schema>"
+    value: "akzo"
   - name: DATABRICKS_CHAT_ENDPOINT
     value: "databricks-claude-opus-4-8"
   - name: LAKEBASE_INSTANCE
-    value: "<lakebase-instance>"
+    value: "scm-control-tower"
   - name: LAKEBASE_DBNAME
     value: "databricks_postgres"
   - name: LAKEBASE_SCHEMA

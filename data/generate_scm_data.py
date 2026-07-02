@@ -273,6 +273,9 @@ def main():
     inventory = build_inventory(pairs)
     service = build_service_levels()
 
+    for df in (otif, inventory, service):
+        df["month"] = df["month"].dt.date  # pandas ns-precision timestamps aren't readable by Spark's read_files()
+
     lanes.to_parquet(os.path.join(OUT, "lanes.parquet"), index=False)
     otif.to_parquet(os.path.join(OUT, "otif.parquet"), index=False)
     inventory.to_parquet(os.path.join(OUT, "inventory.parquet"), index=False)

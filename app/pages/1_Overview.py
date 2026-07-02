@@ -50,7 +50,10 @@ def _otif_trend(region: str, start: str, end: str) -> pd.DataFrame:
             GROUP BY month, region
             ORDER BY month"""
     )["rows"]
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df["otif_pct"] = df["otif_pct"].astype(float)
+    return df
 
 
 @st.cache_data(ttl=300)
@@ -62,7 +65,11 @@ def _service_trend(region: str, start: str, end: str) -> pd.DataFrame:
             WHERE month BETWEEN DATE'{start}' AND DATE'{end}' {where_region}
             ORDER BY month"""
     )["rows"]
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df["service_pct"] = df["service_pct"].astype(float)
+        df["backorder_units"] = df["backorder_units"].astype(int)
+    return df
 
 
 @st.cache_data(ttl=300)
@@ -79,7 +86,11 @@ def _at_risk_inventory(month: str, region: str) -> pd.DataFrame:
               {where_region}
             ORDER BY i.days_of_supply ASC"""
     )["rows"]
-    return pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
+    if not df.empty:
+        df["days_of_supply"] = df["days_of_supply"].astype(float)
+        df["stockout_flag"] = df["stockout_flag"].astype(int)
+    return df
 
 
 @st.cache_data(ttl=300)

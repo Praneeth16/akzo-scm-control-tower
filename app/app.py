@@ -62,11 +62,11 @@ def _latest_kpis() -> dict:
 
     return {
         "month": month,
-        "otif": otif_row["otif"],
-        "china_otif": china_row["otif"],
-        "service_pct": service_row["service_pct"],
-        "backorders": service_row["backorders"],
-        "stockouts": stockout_row["n"],
+        "otif": float(otif_row["otif"]),
+        "china_otif": float(china_row["otif"]),
+        "service_pct": float(service_row["service_pct"]),
+        "backorders": int(service_row["backorders"]),
+        "stockouts": int(stockout_row["n"]),
     }
 
 
@@ -77,6 +77,6 @@ try:
     c1.metric("Overall OTIF", f"{kpis['otif'] * 100:.1f}%")
     c2.metric("China OTIF", f"{kpis['china_otif'] * 100:.1f}%")
     c3.metric("Avg service level", f"{kpis['service_pct'] * 100:.1f}%")
-    c4.metric("Active stockouts", int(kpis["stockouts"]))
+    c4.metric("Active stockouts", kpis["stockouts"])
 except Exception as e:
     st.warning(f"Could not load KPIs — check warehouse/catalog config. ({e})")
